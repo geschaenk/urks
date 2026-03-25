@@ -220,7 +220,7 @@ private enum ClockDefaults {
     static let secondOnesColor = ClockHandColor.red.storedColor
 }
 
-private enum ClockHandKind: String, Identifiable {
+private enum ClockHandKind: String, CaseIterable, Identifiable {
     case hourTens
     case hourOnes
     case minuteTens
@@ -244,6 +244,49 @@ private enum ClockHandKind: String, Identifiable {
             return "hand.kind.secondTens"
         case .secondOnes:
             return "hand.kind.secondOnes"
+        }
+    }
+
+    var isSecondHand: Bool {
+        switch self {
+        case .secondTens, .secondOnes:
+            return true
+        case .hourTens, .hourOnes, .minuteTens, .minuteOnes:
+            return false
+        }
+    }
+
+    var baseLengthRatio: CGFloat {
+        switch self {
+        case .hourTens:
+            return 0.22
+        case .hourOnes:
+            return 0.30
+        case .minuteTens:
+            return 0.38
+        case .minuteOnes:
+            return 0.46
+        case .secondTens:
+            return 0.54
+        case .secondOnes:
+            return 0.62
+        }
+    }
+
+    var baseLineWidthRatio: CGFloat {
+        switch self {
+        case .hourTens:
+            return 0.020
+        case .hourOnes:
+            return 0.018
+        case .minuteTens:
+            return 0.016
+        case .minuteOnes:
+            return 0.014
+        case .secondTens:
+            return 0.012
+        case .secondOnes:
+            return 0.010
         }
     }
 }
@@ -448,6 +491,17 @@ private extension HandCustomization {
         minuteOnesColor.isApproximatelyEqual(to: other.minuteOnesColor, tolerance: colorTolerance) &&
         secondTensColor.isApproximatelyEqual(to: other.secondTensColor, tolerance: colorTolerance) &&
         secondOnesColor.isApproximatelyEqual(to: other.secondOnesColor, tolerance: colorTolerance)
+    }
+}
+
+private extension ClockDisplayMode {
+    var visibleHandKinds: [ClockHandKind] {
+        switch self {
+        case .sixHands:
+            return ClockHandKind.allCases
+        case .fourHands:
+            return ClockHandKind.allCases.filter { !$0.isSecondHand }
+        }
     }
 }
 
@@ -744,46 +798,11 @@ struct ContentView: View {
                         )
                     }
 
-                    handSection(
-                        kind: .hourTens,
-                        width: $hourTensWidth,
-                        length: $hourTensLength,
-                        palette: palette
-                    )
-
-                    handSection(
-                        kind: .hourOnes,
-                        width: $hourOnesWidth,
-                        length: $hourOnesLength,
-                        palette: palette
-                    )
-
-                    handSection(
-                        kind: .minuteTens,
-                        width: $minuteTensWidth,
-                        length: $minuteTensLength,
-                        palette: palette
-                    )
-
-                    handSection(
-                        kind: .minuteOnes,
-                        width: $minuteOnesWidth,
-                        length: $minuteOnesLength,
-                        palette: palette
-                    )
-
-                    if settings.displayMode == .sixHands {
+                    ForEach(settings.displayMode.visibleHandKinds) { kind in
                         handSection(
-                            kind: .secondTens,
-                            width: $secondTensWidth,
-                            length: $secondTensLength,
-                            palette: palette
-                        )
-
-                        handSection(
-                            kind: .secondOnes,
-                            width: $secondOnesWidth,
-                            length: $secondOnesLength,
+                            kind: kind,
+                            width: handWidthBinding(for: kind),
+                            length: handLengthBinding(for: kind),
                             palette: palette
                         )
                     }
@@ -1007,6 +1026,40 @@ struct ContentView: View {
         }
     }
 
+    private func handWidthBinding(for kind: ClockHandKind) -> Binding<Double> {
+        switch kind {
+        case .hourTens:
+            return $hourTensWidth
+        case .hourOnes:
+            return $hourOnesWidth
+        case .minuteTens:
+            return $minuteTensWidth
+        case .minuteOnes:
+            return $minuteOnesWidth
+        case .secondTens:
+            return $secondTensWidth
+        case .secondOnes:
+            return $secondOnesWidth
+        }
+    }
+
+    private func handLengthBinding(for kind: ClockHandKind) -> Binding<Double> {
+        switch kind {
+        case .hourTens:
+            return $hourTensLength
+        case .hourOnes:
+            return $hourOnesLength
+        case .minuteTens:
+            return $minuteTensLength
+        case .minuteOnes:
+            return $minuteOnesLength
+        case .secondTens:
+            return $secondTensLength
+        case .secondOnes:
+            return $secondOnesLength
+        }
+    }
+
     private func recognizedPreset(for customization: HandCustomization) -> ClockPreset? {
         ClockPreset.selectableCases.first {
             $0.customization.approximatelyMatches(customization)
@@ -1032,27 +1085,9 @@ struct ContentView: View {
         selectedPreset: ClockPreset
     ) {
         performWhileSuppressingPresetTracking {
-            hourTensWidth = customization.hourTensWidth
-            hourOnesWidth = customization.hourOnesWidth
-            minuteTensWidth = customization.minuteTensWidth
-            minuteOnesWidth = customization.minuteOnesWidth
-            secondTensWidth = customization.secondTensWidth
-            secondOnesWidth = customization.secondOnesWidth
-
-            hourTensLength = customization.hourTensLength
-            hourOnesLength = customization.hourOnesLength
-            minuteTensLength = customization.minuteTensLength
-            minuteOnesLength = customization.minuteOnesLength
-            secondTensLength = customization.secondTensLength
-            secondOnesLength = customization.secondOnesLength
-
-            setStoredColor(customization.hourTensColor, for: .hourTens)
-            setStoredColor(customization.hourOnesColor, for: .hourOnes)
-            setStoredColor(customization.minuteTensColor, for: .minuteTens)
-            setStoredColor(customization.minuteOnesColor, for: .minuteOnes)
-            setStoredColor(customization.secondTensColor, for: .secondTens)
-            setStoredColor(customization.secondOnesColor, for: .secondOnes)
-
+            for kind in ClockHandKind.allCases {
+                setHandAdjustment(customization.adjustment(for: kind), for: kind)
+            }
             presetRaw = selectedPreset.rawValue
         }
     }
@@ -1182,26 +1217,9 @@ struct ContentView: View {
             elenaEnabled = ClockDefaults.elenaEnabled
 
             let customization = ClockDefaults.preset.customization
-            hourTensWidth = customization.hourTensWidth
-            hourOnesWidth = customization.hourOnesWidth
-            minuteTensWidth = customization.minuteTensWidth
-            minuteOnesWidth = customization.minuteOnesWidth
-            secondTensWidth = customization.secondTensWidth
-            secondOnesWidth = customization.secondOnesWidth
-
-            hourTensLength = customization.hourTensLength
-            hourOnesLength = customization.hourOnesLength
-            minuteTensLength = customization.minuteTensLength
-            minuteOnesLength = customization.minuteOnesLength
-            secondTensLength = customization.secondTensLength
-            secondOnesLength = customization.secondOnesLength
-
-            setStoredColor(customization.hourTensColor, for: .hourTens)
-            setStoredColor(customization.hourOnesColor, for: .hourOnes)
-            setStoredColor(customization.minuteTensColor, for: .minuteTens)
-            setStoredColor(customization.minuteOnesColor, for: .minuteOnes)
-            setStoredColor(customization.secondTensColor, for: .secondTens)
-            setStoredColor(customization.secondOnesColor, for: .secondOnes)
+            for kind in ClockHandKind.allCases {
+                setHandAdjustment(customization.adjustment(for: kind), for: kind)
+            }
         }
     }
 
@@ -1219,78 +1237,8 @@ struct CombinedDialFace: View {
     let snapshot: ClockSnapshot
     let settings: ClockSettings
 
-    private enum HandBase {
-        static let hourTensLength: CGFloat = 0.22
-        static let hourOnesLength: CGFloat = 0.30
-        static let minuteTensLength: CGFloat = 0.38
-        static let minuteOnesLength: CGFloat = 0.46
-        static let secondTensLength: CGFloat = 0.54
-        static let secondOnesLength: CGFloat = 0.62
-
-        static let hourTensWidth: CGFloat = 0.020
-        static let hourOnesWidth: CGFloat = 0.018
-        static let minuteTensWidth: CGFloat = 0.016
-        static let minuteOnesWidth: CGFloat = 0.014
-        static let secondTensWidth: CGFloat = 0.012
-        static let secondOnesWidth: CGFloat = 0.010
-    }
-
     private var hands: [HandSpec] {
-        let c = settings.handCustomization
-
-        let baseHands: [HandSpec] = [
-            HandSpec(
-                id: "hourTens",
-                slotValue: snapshot.hourTensSlot,
-                color: c.hourTensColor.color,
-                lengthRatio: HandBase.hourTensLength * c.hourTensLength,
-                lineWidthRatio: HandBase.hourTensWidth * c.hourTensWidth
-            ),
-            HandSpec(
-                id: "hourOnes",
-                slotValue: snapshot.hourOnesSlot,
-                color: c.hourOnesColor.color,
-                lengthRatio: HandBase.hourOnesLength * c.hourOnesLength,
-                lineWidthRatio: HandBase.hourOnesWidth * c.hourOnesWidth
-            ),
-            HandSpec(
-                id: "minuteTens",
-                slotValue: snapshot.minuteTensSlot,
-                color: c.minuteTensColor.color,
-                lengthRatio: HandBase.minuteTensLength * c.minuteTensLength,
-                lineWidthRatio: HandBase.minuteTensWidth * c.minuteTensWidth
-            ),
-            HandSpec(
-                id: "minuteOnes",
-                slotValue: snapshot.minuteOnesSlot,
-                color: c.minuteOnesColor.color,
-                lengthRatio: HandBase.minuteOnesLength * c.minuteOnesLength,
-                lineWidthRatio: HandBase.minuteOnesWidth * c.minuteOnesWidth
-            )
-        ]
-
-        switch settings.displayMode {
-        case .fourHands:
-            return baseHands
-
-        case .sixHands:
-            return baseHands + [
-                HandSpec(
-                    id: "secondTens",
-                    slotValue: snapshot.secondTensSlot,
-                    color: c.secondTensColor.color,
-                    lengthRatio: HandBase.secondTensLength * c.secondTensLength,
-                    lineWidthRatio: HandBase.secondTensWidth * c.secondTensWidth
-                ),
-                HandSpec(
-                    id: "secondOnes",
-                    slotValue: snapshot.secondOnesSlot,
-                    color: c.secondOnesColor.color,
-                    lengthRatio: HandBase.secondOnesLength * c.secondOnesLength,
-                    lineWidthRatio: HandBase.secondOnesWidth * c.secondOnesWidth
-                )
-            ]
-        }
+        settings.displayMode.visibleHandKinds.map { handSpec(for: $0) }
     }
 
     var body: some View {
@@ -1388,6 +1336,35 @@ struct CombinedDialFace: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .aspectRatio(1, contentMode: .fit)
+    }
+
+    private func handSpec(for kind: ClockHandKind) -> HandSpec {
+        let adjustment = settings.handCustomization.adjustment(for: kind)
+
+        return HandSpec(
+            id: kind.rawValue,
+            slotValue: slotValue(for: kind),
+            color: adjustment.color.color,
+            lengthRatio: kind.baseLengthRatio * adjustment.length,
+            lineWidthRatio: kind.baseLineWidthRatio * adjustment.width
+        )
+    }
+
+    private func slotValue(for kind: ClockHandKind) -> Double {
+        switch kind {
+        case .hourTens:
+            return snapshot.hourTensSlot
+        case .hourOnes:
+            return snapshot.hourOnesSlot
+        case .minuteTens:
+            return snapshot.minuteTensSlot
+        case .minuteOnes:
+            return snapshot.minuteOnesSlot
+        case .secondTens:
+            return snapshot.secondTensSlot
+        case .secondOnes:
+            return snapshot.secondOnesSlot
+        }
     }
 
     @ViewBuilder
