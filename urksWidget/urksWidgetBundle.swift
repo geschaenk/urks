@@ -1,10 +1,4 @@
-//
-//  urksWidgetBundle.swift
-//  urksWidget
-//
-//  Created by Hölscher, Frank on 30.03.26.
-//
-
+/* /Users/drebin/Documents/software/urks/urksWidget/urksWidgetBundle.swift */
 import WidgetKit
 import SwiftUI
 
@@ -12,6 +6,5 @@ import SwiftUI
 struct urksWidgetBundle: WidgetBundle {
     var body: some Widget {
         urksWidget()
-        urksWidgetControl()
     }
 }

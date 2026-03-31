@@ -6,8 +6,42 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2BDBC2B82F79DAFB00068B26 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BDBC2702F79C95000068B26 /* WidgetKit.framework */; };
+		2BDBC2B92F79DAFB00068B26 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BDBC2722F79C95000068B26 /* SwiftUI.framework */; };
+		2BDBC2CE2F79E7C600068B26 /* urksWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2BDBC2B72F79DAFB00068B26 /* urksWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2BDBC2C42F79DAFD00068B26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B64DF302F73E69F00A46E6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BDBC2B62F79DAFB00068B26;
+			remoteInfo = urksWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2BDBC2892F79C95100068B26 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2BDBC2CE2F79E7C600068B26 /* urksWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2B64DF382F73E69F00A46E6C /* urks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BDBC2702F79C95000068B26 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2BDBC2722F79C95000068B26 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2BDBC2B72F79DAFB00068B26 /* urksWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = urksWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BDBC2CF2F79EA9B00068B26 /* urksWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = urksWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -18,6 +52,21 @@
 			};
 			target = 2B64DF372F73E69F00A46E6C /* urks */;
 		};
+		2BDBC2C92F79DAFD00068B26 /* Exceptions for "urksWidget" folder in "urksWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2BDBC2B62F79DAFB00068B26 /* urksWidgetExtension */;
+		};
+		2BDBC2CD2F79E22300068B26 /* Exceptions for "urks" folder in "urksWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ClockStorageKeys.swift,
+				UrksClockShared.swift,
+			);
+			target = 2BDBC2B62F79DAFB00068B26 /* urksWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -25,8 +74,17 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				2BDBC2052F74339E00068B26 /* Exceptions for "urks" folder in "urks" target */,
+				2BDBC2CD2F79E22300068B26 /* Exceptions for "urks" folder in "urksWidgetExtension" target */,
 			);
 			path = urks;
+			sourceTree = "<group>";
+		};
+		2BDBC2BA2F79DAFB00068B26 /* urksWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2BDBC2C92F79DAFD00068B26 /* Exceptions for "urksWidget" folder in "urksWidgetExtension" target */,
+			);
+			path = urksWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -39,13 +97,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2BDBC2B42F79DAFB00068B26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2BDBC2B92F79DAFB00068B26 /* SwiftUI.framework in Frameworks */,
+				2BDBC2B82F79DAFB00068B26 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2B64DF2F2F73E69F00A46E6C = {
 			isa = PBXGroup;
 			children = (
+				2BDBC2CF2F79EA9B00068B26 /* urksWidgetExtension.entitlements */,
 				2B64DF3A2F73E69F00A46E6C /* urks */,
+				2BDBC2BA2F79DAFB00068B26 /* urksWidget */,
+				2BDBC26F2F79C95000068B26 /* Frameworks */,
 				2B64DF392F73E69F00A46E6C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,8 +124,18 @@
 			isa = PBXGroup;
 			children = (
 				2B64DF382F73E69F00A46E6C /* urks.app */,
+				2BDBC2B72F79DAFB00068B26 /* urksWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2BDBC26F2F79C95000068B26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2BDBC2702F79C95000068B26 /* WidgetKit.framework */,
+				2BDBC2722F79C95000068B26 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,10 +148,12 @@
 				2B64DF342F73E69F00A46E6C /* Sources */,
 				2B64DF352F73E69F00A46E6C /* Frameworks */,
 				2B64DF362F73E69F00A46E6C /* Resources */,
+				2BDBC2892F79C95100068B26 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2BDBC2C52F79DAFD00068B26 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				2B64DF3A2F73E69F00A46E6C /* urks */,
@@ -83,6 +165,28 @@
 			productReference = 2B64DF382F73E69F00A46E6C /* urks.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2BDBC2B62F79DAFB00068B26 /* urksWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BDBC2C62F79DAFD00068B26 /* Build configuration list for PBXNativeTarget "urksWidgetExtension" */;
+			buildPhases = (
+				2BDBC2B32F79DAFB00068B26 /* Sources */,
+				2BDBC2B42F79DAFB00068B26 /* Frameworks */,
+				2BDBC2B52F79DAFB00068B26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2BDBC2BA2F79DAFB00068B26 /* urksWidget */,
+			);
+			name = urksWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = urksWidgetExtension;
+			productReference = 2BDBC2B72F79DAFB00068B26 /* urksWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -91,9 +195,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2630;
-				LastUpgradeCheck = 2630;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					2B64DF372F73E69F00A46E6C = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					2BDBC2B62F79DAFB00068B26 = {
 						CreatedOnToolsVersion = 26.3;
 					};
 				};
@@ -104,6 +211,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 2B64DF2F2F73E69F00A46E6C;
 			minimizedProjectReferenceProxies = 1;
@@ -113,12 +221,20 @@
 			projectRoot = "";
 			targets = (
 				2B64DF372F73E69F00A46E6C /* urks */,
+				2BDBC2B62F79DAFB00068B26 /* urksWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2B64DF362F73E69F00A46E6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2BDBC2B52F79DAFB00068B26 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +251,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2BDBC2B32F79DAFB00068B26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2BDBC2C52F79DAFD00068B26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2BDBC2B62F79DAFB00068B26 /* urksWidgetExtension */;
+			targetProxy = 2BDBC2C42F79DAFD00068B26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2B64DF412F73E6A000A46E6C /* Debug */ = {
@@ -143,6 +274,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -197,6 +329,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -207,6 +340,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -254,6 +388,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -264,11 +399,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = urks/urks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8QXA22BUYF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = urks;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -277,7 +415,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = social.rsch.urks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -295,11 +433,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = urks/urks.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8QXA22BUYF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = urks;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,12 +449,74 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = social.rsch.urks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2BDBC2C72F79DAFD00068B26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = urksWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = 8QXA22BUYF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = urksWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = urksWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = social.rsch.urks.urksWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2BDBC2C82F79DAFD00068B26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = urksWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = 8QXA22BUYF;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = urksWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = urksWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = social.rsch.urks.urksWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -338,6 +541,15 @@
 			buildConfigurations = (
 				2B64DF442F73E6A000A46E6C /* Debug */,
 				2B64DF452F73E6A000A46E6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2BDBC2C62F79DAFD00068B26 /* Build configuration list for PBXNativeTarget "urksWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BDBC2C72F79DAFD00068B26 /* Debug */,
+				2BDBC2C82F79DAFD00068B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
